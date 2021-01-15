@@ -1,0 +1,37 @@
+(ARCTools Version 1.2.8)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .begin                     
+                                              .org 2048                  
+00000800  0000002048  c2002bb8  main:         ld [3000], %r1             !11 00001 000000 00000 1 0101110111000   load a into %r1
+00000804  0000002052  c4002bbc                ld [3004], %r2             !11 00010 000000 00000 1 0101110111100   load b into %r2
+00000808  0000002056  c6002bc0                ld [3008], %r3             !11 00011 000000 00000 1 0101111000000   load c into %r3
+0000080c  0000002060  80a12003  top:          subcc %r4, 3, %r0          !10 00000 010100 00100 1 0000000000011   subtract %r4 and 3 then store into %r0
+00000810  0000002064  0280000a                be 10                      !00 0 0001 010 0000000000000000001010    branch if equal to zero into done
+00000814  0000002068  80a14006                subcc %r5, %r6, %r0        !10 00000 010100 00101 0 00000000 00110  subtract %r5 and %r6 then store into %r0
+00000818  0000002072  0a800004                bneg 4                     !00 0 0101 010 0000000000000000000100    branch if negative to else
+0000081c  0000002076  82904002                orcc %r1, %r2, %r1         !10 00001 010010 00001 0 00000000 00010  bitwise logical or into %r1
+00000820  0000002080  8c81a001                addcc %r6, 1, %r6          !10 00110 010000 00110 1 0000000000001 add %r6 and 1 then store into %r6
+00000824  0000002084  10800003                ba 3                       !00 0 1000 010 0000000000000000000011 branch always to bottom
+00000828  0000002088  82884003  else:         andcc %r1, %r3, %r1        !10 00001 010001 00001 0 00000000 00011 bitwise logical and into %r1
+0000082c  0000002092  8a816001                addcc %r5, 1, %r5          !10001010100000010110000000000001 add %r5 and 1 then store into %r5
+00000830  0000002096  88812001  bottom:       addcc %r4, 1, %r4          !10 00100 010000 00100 1 0000000000001 add %r4 and 1 then store into %r4
+00000834  0000002100  10bffff6                ba -10                     !00 0 1000 010 1111111111111111110110 branch always to top
+00000838  0000002104  c6202bc4  done:         st %r3, [3012]             !11 00011 000100 00000 1 0101111000100 store %r3 into y
+0000083c  0000002108  81c3e004                jmpl %r15, 4, %r0          !10 0 0000 111 0000111110000000000100 return to calling function
+                                              .org 3000                  
+00000bb8  0000003000  000000a0  a:                                       
+00000bbc  0000003004  00000033  b:                                       
+00000bc0  0000003008  00000052  c:                                       
+00000bc4  0000003012  00000002  y:                                       
+                                              .org 2                     !the content of %r4 is 11
+
+--- Symbol Table ---
+bottom: 2096
+main: 2048
+done: 2104
+c: 3008
+y: 3012
+else: 2088
+top: 2060
+b: 3004
+a: 3000

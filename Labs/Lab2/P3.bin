@@ -1,0 +1,15 @@
+! Program 3
+.begin
+.org 2048
+main: ld [x], %r2      !11000100000000000010101110111000 load x into %r2
+top: subcc %r1, 4, %r0 !10000000101000000110000000000100 subtract %r1 and 4 then store into %r0
+be done                !00000010100000000000000000000100 branch if zero into done
+srl %r2, 1, %r2        !10000101001100001010000000000001 shift right by 1 digit from %r2 and store into %r2 
+addcc %r1, 1, %r1      !10000010100000000110000000000001 add %r1 and 1 then store into %r1
+ba top                 !00010000101111111111111111111100 branch always to the memory location top
+done: st %r3, [y]      !11000110001000000010101110111100 store %r3 into y
+jmpl %r15+4, %r0       !10000001110000111110000000000100 return to calling function
+.org 3000
+x: 800
+y: 0
+.end

@@ -1,0 +1,16 @@
+! Program 2
+.begin
+.org 2048
+m_start: ld [x], %r1      !11000010000000000010100000100100 load x into %r1
+ld [y], %r2               !11000100000000000010100000101000 load y into %r2
+subcc %r1, %r2, %r0       !10000000101000000100000000000010 subtract %r1 and %r2 then store into %r0
+bne else                  !00011110100000000000000000000011 branch if not equal to zero into memory location else
+andcc %r1, %r2, %r3       !10000110100010000100000000000010 bitwise logical and to %r3
+ba done                   !00010000100000000000000000000010 branch always into done
+else: orcc %r1, %r2, %r3  !10000110100100000100000000000010 bitwise logical or to %r3
+done: st %r3, [a]         !11000110001000000010100000101100 store %r3 into a
+jmpl %r15+4, %r0          !10000001110000111110000000000100 Return to calling function
+x: 30
+y: 48
+a: 0
+.end

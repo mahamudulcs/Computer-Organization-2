@@ -1,0 +1,28 @@
+(ARCTools Version 1.2.8)
+ HexLoc     DecLoc    MachWord   Label        Instruction                Comment
+                                              .begin                     
+                                              .org 2048                  
+                                              .equ 4000                  
+00000800  0000002048  c2002fa0                ld [4000], %r1             !11 00001 000000 00000 1 0111110100000 load a into %r1
+00000804  0000002052  c4002fa4                ld [4004], %r2             !11 00010 000000 00000 1 0111110100100 load b into %r2
+00000808  0000002056  c6002fa8                ld [4008], %r3             !11 00011 000000 00000 1 0111110101000 load c into %r3
+0000080c  0000002060  80808003                addcc %r2, %r3, %r0        !10 00000 010000 00010 0 0000000000011 add %r2 and %r3 and store it into %r0
+00000810  0000002064  88804000                addcc %r1, %r0, %r4        !10 00100 010000 00001 0 0000000000000 add %r2 and %r3 and store it into %r0
+00000814  0000002068  84a08004                subcc %r2, %r4, %r2        !10 00010 010100 00010 0 0000000000100 subtract %r2 and %r3 then store it into %r0
+00000818  0000002072  c0202fa0                st %r0, [4000]             !11 00000 000100 00000 1 0111110100000 store %r0 into a
+0000081c  0000002076  c4202fac                st %r2, [4012]             !11 00010 000100 00000 1 0111110101100 store %r2 into y
+00000820  0000002080  81c3e004                jmpl %r15, 4, %r0          !10 00000 111000 01111 1 0000000000100 return to calling function
+                                              .org dstart                
+00000fa0  0000004000  0000000f  a:                                       
+00000fa4  0000004004  00000036  b:                                       !the content of r4 is 1111
+00000fa8  0000004008  ffffffe3  c:                                       
+00000fac  0000004012  00000000  y:                                       
+                                              .org 0                     
+                                                                         
+
+--- Symbol Table ---
+b: 4004
+dstart: 4000
+a: 4000
+y: 4012
+c: 4008
